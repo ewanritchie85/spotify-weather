@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+PROJECT_DIR="/home/ewanritchie/spotify-weather-project"
+
+echo "🚀 Starting Platform Setup in $PROJECT_DIR..."
+
+# 1. Ensure the project directory exists
+mkdir -p "$PROJECT_DIR"
+cd "$PROJECT_DIR"
+
+# 2. Install essential system dependencies
+echo "📦 Updating system and installing database tools..."
+sudo apt update
+sudo apt install -y python3-venv libpq-dev postgresql-client
+
+# 3. Create the Virtual Environment if it doesn't exist
+if [ ! -d "venv" ]; then
+    echo "🐍 Creating virtual environment..."
+    python3 -m venv venv
+fi
+
+# 4. Install Python database libraries
+echo "⬇️ Installing Python dependencies..."
+./venv/bin/pip install --upgrade pip
+./venv/bin/pip install psycopg2-binary python-dotenv
+
+# 5. RUN THE TABLE-SETTER
+if [ -f "main.py" ]; then
+    echo "🏗️ Initializing Database Tables..."
+    ./venv/bin/python setup_db.py
+else
+    echo "⚠️ Warning: setup_db.py not found in $PROJECT_DIR. Skipping table creation."
+fi
+
+echo "-------------------------------------------------------"
+echo "✨ Platform setup complete!"
+echo "📍 Project Location: $PROJECT_DIR"
+echo "✅ Your PostgreSQL tables are now ready for data."
+echo "-------------------------------------------------------"
+
+
+
