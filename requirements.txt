@@ -1,4 +1,9 @@
 psycopg2-binary
 python-dotenv
+pandas
 requests
 spotipy
+ipykernel
+jupyter-client
+jupyter-core
+tornado

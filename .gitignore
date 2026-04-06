@@ -27,3 +27,20 @@ instance/
 # Logs
 logs/
 *.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Notebook / data outputs
+data/
+
+# Testing / linting cache
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Build / packaging
+dist/
+build/
+*.egg-info/
+pip-wheel-metadata/
